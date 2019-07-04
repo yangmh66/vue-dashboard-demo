@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
             if (response.data.success) {
                 console.log('驗證成功!!');
                 // console.log('next', next);
-                console.log('from', from, 'to', to, 'next', next);
+                console.log('to', to, 'from', from, 'next', next);
                 next();
             } else {
                 console.log('驗證失敗!!');
