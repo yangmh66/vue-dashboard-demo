@@ -5,6 +5,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import 'bootstrap';
 
 //自訂套件
 import App from './App';
@@ -14,7 +15,7 @@ import router from './router';
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 /* eslint-disable no-new */
 new Vue({
