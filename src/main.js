@@ -35,8 +35,7 @@ router.beforeEach((to, from, next) => {
         // console.log('from', from, 'to', to, 'next', next);
 
         const api = `${process.env.APIPATH}/api/user/check`;
-
-        axios.post(api).then(response => {
+    	axios.post(api).then((response) => {
             console.log(response.data);
             if (response.data.success) {
                 console.log('驗證成功!!');

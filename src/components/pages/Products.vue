@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="text-right mt-4">
-      <button class="btn btn-primary" data-toggle="modal" @click="openModal(true)">建立新的產品</button>
+      <button class="btn btn-primary"
+        @click="openModal(true)">
+        建立新的產品</button>
     </div>
     <table class="table mt-4">
       <thead>
@@ -18,8 +20,12 @@
         <tr v-for="(item) in products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
-          <td class="text-right">{{item.origin_price}}</td>
-          <td class="text-right">{{item.price}}</td>
+          <td class="text-right">
+            {{ item.origin_price}}
+          </td>
+          <td class="text-right">
+            {{ item.price}}
+          </td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
