@@ -39,24 +39,23 @@ export default {
   data() {
     return {
       user: {
-        username: "",
-        password: ""
-      }
+        username: '',
+        password: '',
+      },
     };
   },
   methods: {
     signin() {
       const api = `${process.env.APIPATH}/signin`;
       const vm = this;
-      // console.log(process.env.APIPATH);
-      this.$http.post(api, vm.user).then(response => {
+      this.$http.post(api, vm.user).then((response) => {
         console.log(response.data);
         if (response.data.success) {
-          vm.$router.push("/admin/products");
+          vm.$router.push('/admin/products');
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

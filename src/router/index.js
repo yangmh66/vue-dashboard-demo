@@ -1,14 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
-import Login from '@/components/pages/Login';
+// import HelloWorld from '@/components/HelloWorld';
 import Dashboard from '@/components/Dashboard';
+import Login from '@/components/pages/Login';
 import Products from '@/components/pages/Products';
 
 Vue.use(Router);
 
 export default new Router({
-    routes: [{
+  routes: [
+    {
             path: '*',
             redirect: 'login',
         },
@@ -19,6 +20,7 @@ export default new Router({
         //     // a meta field
         //     meta: { requiresAuth: true }
         // },
+
         {
             path: '/login',
             name: 'Login',
@@ -31,15 +33,13 @@ export default new Router({
             component: Dashboard,
             // a meta field
             meta: { requiresAuth: true },
-            children: [{
-                path: 'products',
-                name: 'Products',
-                component: Products,
-                // a meta field
-                meta: { requiresAuth: true },
-            }]
-
-
+      		children: [
+        		{
+                	path: 'products',
+                	name: 'Products',
+                	component: Products,
+        		},
+      		],
         },
-    ]
+    ],
 });
