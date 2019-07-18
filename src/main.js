@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
             if (response.data.success) {
                 console.log('驗證成功!!');
                 // console.log('next', next);
-                console.log('to', to, 'from', from, 'next', next);
+                console.log('from', from, 'to', to, 'next', next);
                 next();
             } else {
                 console.log('驗證失敗!!');
@@ -51,7 +51,7 @@ router.beforeEach((to, from, next) => {
             }
         });
     } else {
-        console.log('In else of --> if (to.meta.requiresAuth) ...');
+        console.log('else of ---> if (to.meta.requiresAuth) ...');
         console.log('from', from, 'to', to, 'next', next);
         next();
     }

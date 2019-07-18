@@ -246,41 +246,41 @@ export default {
         this.tempProduct = Object.assign({}, item);
         this.isNew = false;
       }
-      $("#productModal").modal("show");
+      $('#productModal').modal('show');
     },
     updateProduct() {
       let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
-      let httpMethod = "post";
+      let httpMethod = 'post';
       const vm = this;
       if (!vm.isNew) {
         api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-        httpMethod = "put";
+        httpMethod = 'put';
       }
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         console.log(response.data);
         if (response.data.success) {
-          $("#productModal").modal("hide");
+          $('#productModal').modal('hide');
           vm.getProducts();
         } else {
-          $("#productModal").modal("hide");
+          $('#productModal').modal('hide');
           vm.getProducts();
-          console.log("新增失敗");
+          console.log('新增失敗');
         }
         // vm.products = response.data.products;
       });
     },
     openDelProductModal(item) {
       const vm = this;
-      $("#delProductModal").modal("show");
+      $('#delProductModal').modal('show');
       vm.tempProduct = Object.assign({}, item);
     },
     delProduct() {
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-      this.$http.delete(url).then(response => {
+      this.$http.delete(url).then((response) => {
         console.log(response, vm.tempProduct);
-        $("#delProductModal").modal("hide");
+        $('#delProductModal').modal('hide');
         vm.isLoading = false;
         this.getProducts();
       });
