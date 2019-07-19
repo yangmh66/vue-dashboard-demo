@@ -15,44 +15,46 @@ import router from './router';
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
-//axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    components: { App },
-    template: '<App/>',
+  el: '#app',
+  router,
+  components: {
+    App
+  },
+  template: '<App/>',
 });
 
 router.beforeEach((to, from, next) => {
 
-    console.log('In beforeEach...');
-    console.log('to', to, 'from', from, 'next', next);
-    //
-    if (to.meta.requiresAuth) {
-        console.log('這裡需要驗證!!');
-        // console.log('from', from, 'to', to, 'next', next);
+  console.log('In beforeEach...');
+  console.log('to', to, 'from', from, 'next', next);
+  //
+  if (to.meta.requiresAuth) {
+    console.log('這裡需要驗證!!');
+    // console.log('from', from, 'to', to, 'next', next);
 
-        const api = `${process.env.APIPATH}/api/user/check`;
-    	axios.post(api).then((response) => {
-            console.log(response.data);
-            if (response.data.success) {
-                console.log('驗證成功!!');
-                // console.log('next', next);
-                console.log('from', from, 'to', to, 'next', next);
-                next();
-            } else {
-                console.log('驗證失敗!!');
-                next({
-                    path: '/login',
-                });
-            }
-        });
-    } else {
-        console.log('else of ---> if (to.meta.requiresAuth) ...');
+    const api = `${process.env.APIPATH}/api/user/check`;
+    axios.post(api).then((response) => {
+      console.log(response.data);
+      if (response.data.success) {
+        console.log('驗證成功!!');
+        // console.log('next', next);
         console.log('from', from, 'to', to, 'next', next);
         next();
-    }
+      } else {
+        console.log('驗證失敗!!');
+        next({
+          path: '/login',
+        });
+      }
+    });
+  } else {
+    console.log('else of ---> if (to.meta.requiresAuth) ...');
+    console.log('from', from, 'to', to, 'next', next);
+    next();
+  }
 
 });
