@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="text-right mt-4">
-      <button class="btn btn-primary"
-        @click="openModal(true)">
-        建立新的產品</button>
+      <button class="btn btn-primary" @click="openModal(true)">建立新的產品</button>
     </div>
     <table class="table mt-4">
       <thead>
@@ -20,12 +18,8 @@
         <tr v-for="(item) in products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
-          <td class="text-right">
-            {{ item.origin_price}}
-          </td>
-          <td class="text-right">
-            {{ item.price}}
-          </td>
+          <td class="text-right">{{ item.origin_price}}</td>
+          <td class="text-right">{{ item.price}}</td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
@@ -77,14 +71,15 @@
                     或 上傳圖片
                     <i class="fas fa-spinner fa-spin"></i>
                   </label>
-                  <input type="file" id="customFile" class="form-control" ref="files" />
+                  <input
+                    type="file"
+                    id="customFile"
+                    class="form-control"
+                    ref="files"
+                    @change="uploadFile"
+                  />
                 </div>
-                <img
-                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                  class="img-fluid"
-                  :src="tempProduct.imageUrl"
-                  alt
-                />
+                <img class="img-fluid" :src="tempProduct.imageUrl" alt />
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -234,11 +229,11 @@ export default {
   methods: {
     getProducts() {
       //const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products`;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`; 
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products`;
       const vm = this;
       console.log(process.env.APIPATH);
       console.log(process.env.CUSTOMPATH);
-      this.$http.get(api).then((response) => {
+      this.$http.get(api).then(response => {
         console.log(response.data);
         vm.products = response.data.products;
       });
@@ -252,44 +247,66 @@ export default {
         this.tempProduct = Object.assign({}, item);
         this.isNew = false;
       }
-      $('#productModal').modal('show');
+      $("#productModal").modal("show");
     },
     updateProduct() {
       let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
-      let httpMethod = 'post';
+      let httpMethod = "post";
       const vm = this;
       if (!vm.isNew) {
         api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-        httpMethod = 'put';
+        httpMethod = "put";
       }
       console.log(process.env.APIPATH, process.env.CUSTOMPATH);
-      this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
+      this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
         console.log(response.data);
         if (response.data.success) {
-          $('#productModal').modal('hide');
+          $("#productModal").modal("hide");
           vm.getProducts();
         } else {
-          $('#productModal').modal('hide');
+          $("#productModal").modal("hide");
           vm.getProducts();
-          console.log('新增失敗');
+          console.log("新增失敗");
         }
         // vm.products = response.data.products;
       });
     },
     openDelProductModal(item) {
       const vm = this;
-      $('#delProductModal').modal('show');
+      $("#delProductModal").modal("show");
       vm.tempProduct = Object.assign({}, item);
     },
     delProduct() {
       const vm = this;
       const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-      this.$http.delete(url).then((response) => {
+      this.$http.delete(url).then(response => {
         console.log(response, vm.tempProduct);
-        $('#delProductModal').modal('hide');
+        $("#delProductModal").modal("hide");
         vm.isLoading = false;
         this.getProducts();
       });
+    },
+    uploadFile() {
+      console.log(this);
+      const uploadedFile = this.$refs.files.files[0];
+      const vm = this;
+      const formData = new FormData();
+      formData.append("file-to-upload", uploadedFile);
+      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
+      this.$http
+        .post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          if (response.data.success) {
+            // vm.tempProduct.imageUrl = response.data.imageUrl;
+            console.log(vm.tempProduct);
+            vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+          }
+        });
     }
   },
   created() {

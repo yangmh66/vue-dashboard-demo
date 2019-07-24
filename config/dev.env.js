@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 const prodEnv = require('./prod.env');
 
 module.exports = merge(prodEnv, {
-    NODE_ENV: '"development"',
-    APIPATH: '"https://vue-course-api.herokuapp.com"',
-    CUSTOMPATH: '"ymh66"',
+  NODE_ENV: '"development"',
+  APIPATH: '"https://vue-course-api.herokuapp.com"',
+  CUSTOMPATH: '"yangmh66"',
 });
