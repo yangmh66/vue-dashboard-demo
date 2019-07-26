@@ -9,20 +9,46 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 import 'bootstrap';
 
+import VueI18n from 'vue-i18n';
+
+import VeeValidate from 'vee-validate';
+import zhTWValidate from 'vee-validate/dist/locale/zh_TW';
+
 //自訂套件
 import App from './App';
 import router from './router';
-
+import './bus';
+import currencyFilter from './filters/currency';
+import dateFilter from './filters/date';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
+VeeValidate.Validator.localize('zh_TW', zhTWValidate);
+Vue.use(VeeValidate);
+
+// Vue.use(VueI18n);
+
 Vue.component('Loading', Loading);
+Vue.filter('currency', currencyFilter);
+Vue.filter('date', dateFilter);
 
 axios.defaults.withCredentials = true;
 
+// const i18n = new VueI18n({
+//   locale: 'zhTW'
+// });
+
+// Vue.use(VeeValidate, {
+//   i18n,
+//   dictionary: {
+//     zhTW
+//   }
+// });
+
 /* eslint-disable no-new */
 new Vue({
+  // i18n,
   el: '#app',
   router,
   components: {
