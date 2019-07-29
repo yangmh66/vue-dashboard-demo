@@ -188,6 +188,7 @@
         <div class="form-group">
           <label for="useraddress">收件人地址</label>
           <input
+            type="address"
             class="form-control"
             name="address"
             :class="{'is-invalid': errors.has('address')}"
