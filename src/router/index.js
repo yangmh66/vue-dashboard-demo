@@ -7,8 +7,13 @@ import Products from '@/components/pages/Products';
 import Coupons from '@/components/pages/Coupons';
 import Orders from '@/components/pages/Orders';
 import CustomerOrder from '@/components/pages/CustomerOrders';
-
 import CustomerCheckout from '@/components/pages/CustomerCheckout';
+
+import VehicleTypeRecog from '@/components/pages/vehicle_type_recog';
+import LicensePlateRecog from '@/components/pages/license_plate_recog';
+
+import FetchAllCarPlateVideo from '@/components/pages/FetchAllCarPlateVideo';
+import FetchAllCarTypeVideo from '@/components/pages/FetchAllCarTypeVideo';
 
 Vue.use(Router);
 
@@ -79,6 +84,26 @@ export default new Router({
           name: 'CustomerCheckout',
           component: CustomerCheckout,
         },
+        {
+          path: 'FetchAllCarPlateVideo',
+          name: 'FetchAllCarPlateVideo',
+          component: FetchAllCarPlateVideo,
+        },
+        {
+          path: 'FetchAllCarTypeVideo',
+          name: 'FetchAllCarTypeVideo',
+          component: FetchAllCarTypeVideo,
+        },
+        {
+          path: 'vehicle_type_recog',
+          name: 'VehicleTypeRecog',
+          component: VehicleTypeRecog,
+        },
+        {
+          path: 'license_plate_recog',
+          name: 'LicensePlateRecog',
+          component: LicensePlateRecog,
+        }
       ],
     },
 

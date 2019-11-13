@@ -8,6 +8,7 @@ import VueAxios from 'vue-axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.min.css';
 import 'bootstrap';
+import BootstrapVue from 'bootstrap-vue';
 
 import VueI18n from 'vue-i18n';
 
@@ -27,13 +28,14 @@ Vue.use(VueAxios, axios);
 VeeValidate.Validator.localize('zh_TW', zhTWValidate);
 Vue.use(VeeValidate);
 
+Vue.use(BootstrapVue);
 // Vue.use(VueI18n);
 
 Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.filter('date', dateFilter);
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 // const i18n = new VueI18n({
 //   locale: 'zhTW'
