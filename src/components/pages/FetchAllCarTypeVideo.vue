@@ -3,13 +3,13 @@
    <div class="hello">
     <h1>{{ msg }}</h1>
     <button @click="getPageData(2)">取得該頁資料</button>
-    
+
     <ul v-for="(entry, index) in pageEntry" :key="entry.index">
       <li>
         <a>{{index}}.{{entry.youtubeId}}, {{entry.Object}}, {{entry.filename}}</a>
       </li>
     </ul>
-  </div> 
+  </div>
 </template>
 -->
 <template>
@@ -37,7 +37,7 @@
 </tr>
 </thead>
 <tbody>
-      
+
 
 <tr v-for="(entry, index) in pageEntry" :key="entry.index">
 <td>{{ index+(currentPage-1)*perPage+1 }}</td>
@@ -76,7 +76,7 @@ export default {
 
   data: function() {
     return {
-      
+
       allEntry: [],//fetch all entry's items
 
       currentPage: 1,
@@ -103,14 +103,14 @@ export default {
     downLoadJpg: function() {
       let self = this;
       let url =
-        "http://140.96.0.34:50013/filterfun/getYoloImg/04jm7VfInbo/res_00000024.jpg";
+        "http://10.174.61.1:50016/filterfun/getYoloImg/04jm7VfInbo/res_00000024.jpg";
       console.log("url: ", url);
-      
+
       axios.get(url, { responseType: "blob" }).then(function(response) {
         const content = response.data; //返回的文件流
         console.log("content:", content);
         const cnHeader = response.headers; //返回的headers
-        
+
         const blob = new Blob([content], { type: "image/jpeg" });
 
         self.imgUrl = window.URL.createObjectURL(blob);
@@ -127,14 +127,14 @@ export default {
     let self = this;
     axios({
       methods: "get",
-      url: "http://140.96.0.34:50013/dataset/queryTrainTwOrg"
+      url: "http://10.174.61.1:50016/dataset/queryTrainTwOrg"
     }).then(response => {
       //self.data = response.data;
-      console.log(response.data.data);
-      //console.log(response.data.data.length);
-      var resdata = response.data.data;
+      console.log(response.data.message.data);
+      console.log(response.data.message.data.length);
+      var resdata = response.data.message.data;
       self.allEntry = resdata;
-      self.totalItems = response.data.data.length;
+      self.totalItems = response.data.message.data.length;
       console.log(self.totalItems);
       console.log(self.allEntry);
 

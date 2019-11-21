@@ -87,7 +87,7 @@ export default {
     downLoadJpg: function() {
       let self = this;
       let url =
-        "http://140.96.0.34:50013/filterfun/getYoloImg/04jm7VfInbo/res_00000024.jpg";
+        "http://10.174.61.1:50016/filterfun/getYoloImg/04jm7VfInbo/res_00000024.jpg";
       console.log("url: ", url);
 
       axios.get(url, { responseType: "blob" }).then(function(response) {
@@ -109,14 +109,15 @@ export default {
     let self = this;
     axios({
       methods: "get",
-      url: "http://140.96.0.34:50013/dataset/queryTrainTwOrg"
+      url: "http://10.174.61.1:50016/dataset/queryTrainTwOrg"
     }).then(response => {
       //self.data = response.data;
-      console.log(response.data.data);
-      //console.log(response.data.data.length);
-      var resdata = response.data.data;
+      console.log("response: ", response);
+      console.log("response.data.message.data: ", response.data.message.data);
+      console.log(response.data.message.data.length);
+      var resdata = response.data.message.data;
       self.allEntry = resdata;
-      self.totalItems = response.data.data.length;
+      self.totalItems = response.data.message.data.length;
       console.log(self.totalItems);
       console.log(self.allEntry);
 

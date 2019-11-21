@@ -72,7 +72,7 @@ export default new Router({
 
     {
       path: '/',
-      name: 'Dashboard',
+      name: 'Dashboard_root',
       component: Dashboard,
       children: [{
           path: 'customer_order',
